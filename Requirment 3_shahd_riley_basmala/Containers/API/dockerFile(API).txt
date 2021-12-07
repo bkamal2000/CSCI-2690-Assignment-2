@@ -1,0 +1,14 @@
+dockerFile(API).txt
+FROM python:3
+
+ADD my_script.py /
+
+pip install Flask
+
+RUN pip install pystrich
+
+CMD [ "python", "./app.py" ]
+
+docker build -t python-py
+
+docker run python-py

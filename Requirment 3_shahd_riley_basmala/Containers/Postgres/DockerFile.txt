@@ -1,0 +1,35 @@
+
+FROM postgres
+
+ENV POSTGRES_PASSWORD docker
+
+ENV POSTGRES_DB world
+
+COPY world.sql /docker-entrypoint-initdb.d/
+	
+docker build -t my-postgres-db ./
+
+docker images -a
+
+docker run –name pg-docker -e POSTGRES_PASSWORD=root POSTGRES_USER=user@domain.com -e PGDATA=/tmp -d -p 8080:8080 -v 
+
+${PWD}:/var/lib/postgresql/data postgres:11
+
+WORKDIR ${PWD}
+
+PWD 8080
+
+# this part of the file is for the running the python API container
+FROM python:3.8
+
+WORKDIR /app
+
+ADD my_script.py /
+
+RUN pip install pystrich
+
+CMD [ "python", "./my_script.py" ]
+
+docker build -t python-py
+
+docker run python-py
